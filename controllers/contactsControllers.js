@@ -54,10 +54,12 @@ export const updateContact = async (req, res) => {
         if (Object.keys(updateContact).length === 0) {
            return res.status(400).send({"message": "Body must have at least one field"})
         }
-   
-      const contact = await contactsService.updateContact(id, updateContact)
-      res.status(200).send(contact);
+        const contact = await contactsService.updateContact(id, updateContact)
+        if (contact.id === id) { 
+            res.status(200).send(contact);
+        }
+     
     } catch (error) {
-        res.status(404).send({"message": error.message}) 
+        res.status(404).send({"message": "Not found"}) 
     }
 };
